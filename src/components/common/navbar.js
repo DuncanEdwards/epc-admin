@@ -34,7 +34,7 @@ const MainNavbar = ({isAdministrator}) => {
   );
 };
 
-MainNavbar.proptypes = {
+MainNavbar.propTypes = {
   isAdministrator:PropTypes.bool.isRequired
 };
 
