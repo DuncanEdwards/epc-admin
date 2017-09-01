@@ -26,7 +26,7 @@ export default {
     module: {
         loaders: [
             {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-            {test: /(\.css)$/, loaders: ['style', 'css']},
+            {test: /(\.css)$/, loaders: ['style', 'css']}
         ],
       noParse: [/aws-sdk/]
     },
