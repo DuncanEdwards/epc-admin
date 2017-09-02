@@ -1,23 +1,22 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import MainNavbar from './common/navbar';
+import MainNavbar from './common/mainNavbar';
+import Main from './common/main';
 
 class App extends React.Component {
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <MainNavbar isAdministrator/>
-        <div className="container">
-          {this.props.children}
-        </div>
+        <Main/>
       </div>
     );
   }
 }
 
-App.propTypes = {
+/*App.propTypes = {
   children: PropTypes.object.isRequired
-};
+};*/
 
 
 export default App;

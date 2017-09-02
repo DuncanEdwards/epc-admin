@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 const UserListRow = ({user}) => {
-  debugger;
   return (
     <tr>
       <td>{user.firstName}</td>

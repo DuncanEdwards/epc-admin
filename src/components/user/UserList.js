@@ -3,7 +3,6 @@ import UserListRow from './UserListRow';
 import { Table } from 'react-bootstrap';
 
 const UserList = ({users}) => {
-  debugger;
   return (
     <Table striped bordered hover>
       <thead>
