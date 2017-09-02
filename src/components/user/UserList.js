@@ -3,18 +3,20 @@ import UserListRow from './UserListRow';
 import { Table } from 'react-bootstrap';
 
 const UserList = ({users}) => {
+  debugger;
   return (
-    <Table striped bordered condensed hover>
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th>First Name</th>
           <th>Surname</th>
           <th>Type</th>
-          <th>Category</th>
-          <th>Length</th>
         </tr>
       </thead>
       <tbody>
+      {users.map(user =>
+    <UserListRow key={user.id} user={user}/>
+      )}
       </tbody>
     </Table>
   );

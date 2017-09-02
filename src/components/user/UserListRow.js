@@ -2,11 +2,12 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 const UserListRow = ({user}) => {
+  debugger;
   return (
     <tr>
-      <td><a href={user.FirstName} target="_blank">Watch</a></td>
-      <td>{user.Surname}</td>
-      <td>{user.UserType}</td>
+      <td>{user.firstName}</td>
+      <td>{user.surname}</td>
+      <td>{user.type}</td>
     </tr>
   );
 };
