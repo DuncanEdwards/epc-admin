@@ -12,7 +12,7 @@ const MainNavbar = ({user}) => {
         </Navbar.Brand>
       </Navbar.Header>
 
-      {(user != null) &&
+      {(user.isValid) &&
       <Nav>
         <NavDropdown title="Jobs">
           <MenuItem href="/jobs">All Jobs</MenuItem>
@@ -24,7 +24,7 @@ const MainNavbar = ({user}) => {
             {true && <MenuItem href="/adduser">Add User</MenuItem>}
           </NavDropdown>}
       </Nav>}
-      {(user != null) &&
+      {(user.isValid) &&
       <Nav pullRight>
         <NavDropdown title="Duncan Edwards">
           <MenuItem>Administrator</MenuItem>

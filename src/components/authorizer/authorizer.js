@@ -14,6 +14,9 @@ class Authorizer extends React.Component {
 
     let user = jwt_decode(token);
     user['isValid'] = true;
+    //Map over a more user friendly role
+    user['role'] = user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    //Calculate if expired
     if(user.exp < Math.round((new Date()).getTime()/1000))
     {
       //Token expired (expired, return isValid=false)
@@ -27,7 +30,7 @@ class Authorizer extends React.Component {
     if (!user.isValid) {
       return null;
     } else {
-      return user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      return user['role'];
     }
   }
 
