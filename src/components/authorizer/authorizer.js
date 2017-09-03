@@ -5,24 +5,23 @@ import jwt_decode from 'jwt-decode';
 
 class Authorizer extends React.Component {
 
-  static GetUser({roles}) {
-      debugger;
+  static ValidateRoles(userRoles) {
+
       let token = sessionStorage.getItem('jwtToken');
       if (token === null) {
-        return null;
+        return false;
       }
-      let decoded = jwt_decode(token);
-      console.log(decoded);
+
+      if (userRoles) {
+        let decoded = jwt_decode(token);
+        let role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+        return userRoles.includes(role);
+      } else {
+        return true;
+      }
+
   }
 
 }
-
-Authorizer.propTypes = {
-  routes:PropTypes.object.isRequired
-};
-
-Authorizer.contextTypes = {
-  router:PropTypes.object.isRequired
-};
 
 export default Authorizer;
