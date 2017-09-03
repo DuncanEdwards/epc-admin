@@ -5,21 +5,39 @@ import jwt_decode from 'jwt-decode';
 
 class Authorizer extends React.Component {
 
+  static GetUser() {
+
+    let token = sessionStorage.getItem('jwtToken');
+    if (token === null) {
+      return { isValid: false };
+    }
+
+    let user = jwt_decode(token);
+    user['isValid'] = true;
+    if(user.exp < Math.round((new Date()).getTime()/1000))
+    {
+      //Token expired (expired, return isValid=false)
+      user['isValid'] = false;
+    }
+    return user;
+  }
+
+  static GetUserRole() {
+    let user = this.GetUser();
+    if (!user.isValid) {
+      return null;
+    } else {
+      return user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    }
+  }
+
   static ValidateRoles(userRoles) {
-
-      let token = sessionStorage.getItem('jwtToken');
-      if (token === null) {
-        return false;
-      }
-
-      if (userRoles) {
-        let decoded = jwt_decode(token);
-        let role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-        return userRoles.includes(role);
-      } else {
-        return true;
-      }
-
+    if (!userRoles) {
+      //No roles to validate if, there is a user then return true
+      return (this.GetUser().isValid);
+    }
+    //Return if matches
+    return userRoles.includes(this.GetUserRole());
   }
 
 }

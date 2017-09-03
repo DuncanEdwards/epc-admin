@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Authorizer from '../authorizer/authorizer';
 
-const PrivateRoute = ({ component, exact = false, path, authenticated, roles, location }) => {
+const PrivateRoute = ({ component, exact = false, path, authenticated, roles, location, render }) => {
 
     if (Authorizer.ValidateRoles(roles)) {
-      return(<Route exact={exact} path={path} component={component}/>);
+      return(<Route exact={exact} path={path} component={component} render={render}/>);
     } else {
       return(
         <Route exact={exact} path={path}>
@@ -24,7 +24,8 @@ PrivateRoute.propTypes = {
   path: string.isRequired,
   authenticated: bool.isRequired,
   roles: PropTypes.array,
-  location: PropTypes.object
+  location: PropTypes.object,
+  render: PropTypes.object
 };
 
 

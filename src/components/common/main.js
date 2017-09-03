@@ -9,8 +9,8 @@ const Main = () => {
   return (
     <div className="container">
       <Switch>
-        <Route exact path="/" render={() => <h2>Home page2</h2>}/>
-        <PrivateRoute path="/users" component={UsersPage} authenticated={false}/>
+        <PrivateRoute exact path="/" render={() => <h2>Home page2</h2>}/>
+        <PrivateRoute path="/users" component={UsersPage} roles={["Administrator2"]}  authenticated={false}/>
         <Route path="/login" render={() => (<h2>Login</h2>)}/>
       </Switch>
     </div>
