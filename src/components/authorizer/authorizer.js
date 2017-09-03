@@ -1,24 +1,18 @@
 
 import React, { PropTypes } from 'react';
 import RouteHandler from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 class Authorizer extends React.Component {
 
-  componentWillMount() {
-    debugger;
-    const { routes } = this.props; // array of routes
-    const { router } = this.context;
-
-    router.push('/login');
-
-  }
-
-  render() {
-    return (
-      <div className="pure-g profile-container">
-        <RouteHandler {...this.props} />;
-      </div>
-    );
+  static GetUser({roles}) {
+      debugger;
+      let token = sessionStorage.getItem('jwtToken');
+      if (token === null) {
+        return null;
+      }
+      let decoded = jwt_decode(token);
+      console.log(decoded);
   }
 
 }

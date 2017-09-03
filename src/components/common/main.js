@@ -14,7 +14,7 @@ const Main = () => {
     <div className="container">
       <Switch>
         <Route exact path="/" render={homePage}/>
-        <PrivateRoute path="/users" component={UsersPage} authenticated/>
+        <PrivateRoute path="/users" component={UsersPage} authenticated={false}/>
         <Route path="/login" render={() => (<h2>Login</h2>)}/>
       </Switch>
     </div>

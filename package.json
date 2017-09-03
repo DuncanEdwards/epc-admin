@@ -13,6 +13,7 @@
   "dependencies": {
     "babel-polyfill": "6.8.0",
     "jquery": "2.2.3",
+    "jwt-decode": "2.2.0",
     "react": "15.6.1",
     "react-bootstrap": "0.31.2",
     "react-dom": "15.6.1",
