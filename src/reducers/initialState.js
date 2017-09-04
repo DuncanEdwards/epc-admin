@@ -1,4 +1,4 @@
-import Authorizer from '../components/authorizer/authorizer'
+import Authorizer from '../components/authorizer/authorizer';
 
 export default {
   user:Authorizer.GetUser(),

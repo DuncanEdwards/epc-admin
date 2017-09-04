@@ -25,8 +25,7 @@ class Authorizer extends React.Component {
     return user;
   }
 
-  static GetUserRole() {
-    let user = this.GetUser();
+  static GetUserRole(user) {
     if (!user.isValid) {
       return null;
     } else {
@@ -34,13 +33,13 @@ class Authorizer extends React.Component {
     }
   }
 
-  static ValidateRoles(userRoles) {
+  static ValidateRoles(user, userRoles) {
     if (!userRoles) {
       //No roles to validate if, there is a user then return true
-      return (this.GetUser().isValid);
+      return (user.isValid);
     }
     //Return if matches
-    return userRoles.includes(this.GetUserRole());
+    return userRoles.includes(this.GetUserRole(user));
   }
 
 }
