@@ -12,8 +12,8 @@ import {
 const LoginForm = ({onInputChange,loginFormErrors}) => {
   return (
     <form>
-      <FormGroup  validationState={(loginFormErrors.isEmailError)?'error':null} horizontal controlId="email">
-          <InputGroup sm={12}>
+      <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
+          <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="user" />
             </InputGroup.Addon>
@@ -21,7 +21,7 @@ const LoginForm = ({onInputChange,loginFormErrors}) => {
           </InputGroup>
       </FormGroup>
       <FormGroup controlId="password">
-        <InputGroup sm={12}>
+        <InputGroup>
           <InputGroup.Addon>
             <Glyphicon glyph="lock" />
           </InputGroup.Addon>

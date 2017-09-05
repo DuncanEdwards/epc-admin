@@ -29,12 +29,12 @@ const PrivateRoute = ({ component, exact = false, path, roles, location, render 
 const { object, bool, string, func } = PropTypes;
 
 PrivateRoute.propTypes = {
-  component: PropTypes.func.isRequired,
+  component: PropTypes.func,
   exact: PropTypes.bool,
   path: string.isRequired,
   roles: PropTypes.array,
   location: PropTypes.object,
-  render: PropTypes.object
+  render: PropTypes.func
 };
 
 
