@@ -5,6 +5,7 @@ import {browserHistory} from 'react-router';
 /*import LoginDialog from './loginDialog';*/
 import * as userActions from '../../actions/userActions';
 import LoginDialog from './loginDialog';
+import AuthApi from '../../api/mock/mockAuthApi';
 
 class LoginPage extends React.Component {
 
@@ -18,7 +19,7 @@ class LoginPage extends React.Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.attemptLogin = this.attemptLogin.bind(this);
   }
 
   getInitialFormErrors() {
@@ -29,18 +30,30 @@ class LoginPage extends React.Component {
         });
   }
 
+  attemptLogin(event) {
+    event.preventDefault();
+    let {email, password} = this.state;
+    if (this.validateFields(email,password)) {
+      debugger;
+      let result = AuthApi.getToken(email, password);
+    }
+  }
+
   /*Replace paramters with state*/
   validateFields(email,password) {
     let loginFormErrors = this.getInitialFormErrors();
 
-    if (!email) {
+    if ((!email) || (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))) {
       loginFormErrors.errorMessage = 'Please enter a valid email address';
       loginFormErrors.isEmailError = true;
+    } else if (!password) {
+      loginFormErrors.errorMessage = 'Please enter a valid password';
+      loginFormErrors.isPasswordError = true;
     }
 
-    this.setState(
-      Object.assign({}, this.state, { loginFormErrors: loginFormErrors }));
-    debugger;
+    this.setState({loginFormErrors:loginFormErrors});
+
+    return loginFormErrors.errorMessage == '';
   }
 
   handleInputChange(event) {
@@ -53,7 +66,7 @@ class LoginPage extends React.Component {
     return (
       <div>
         <h2>LoginPage</h2>
-        <LoginDialog onInputChange={this.handleInputChange} loginFormErrors={this.state.loginFormErrors}/>
+        <LoginDialog onSubmit={this.attemptLogin} onInputChange={this.handleInputChange} loginFormErrors={this.state.loginFormErrors}/>
       </div>
     );
   }

@@ -1,15 +1,16 @@
 import React,{PropTypes} from 'react';
 import {
+  Alert,
+  Button,
+  ControlLabel,
   FormGroup,
   FormControl,
-  Col,
-  ControlLabel,
-  InputGroup,
-  Button,
-  Glyphicon} from 'react-bootstrap';
+  Glyphicon,
+  InputGroup
+  } from 'react-bootstrap';
 
 
-const LoginForm = ({onInputChange,loginFormErrors}) => {
+const LoginForm = ({onSubmit,onInputChange,loginFormErrors}) => {
   return (
     <form>
       <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
@@ -20,7 +21,7 @@ const LoginForm = ({onInputChange,loginFormErrors}) => {
             <FormControl  onChange={onInputChange} type="email" placeholder="Email" />
           </InputGroup>
       </FormGroup>
-      <FormGroup controlId="password">
+      <FormGroup controlId="password" validationState={(loginFormErrors.isPasswordError)?'error':null}>
         <InputGroup>
           <InputGroup.Addon>
             <Glyphicon glyph="lock" />
@@ -28,9 +29,10 @@ const LoginForm = ({onInputChange,loginFormErrors}) => {
           <FormControl onChange={onInputChange} type="password" placeholder="Password" />
         </InputGroup>
       </FormGroup>
-
+      {loginFormErrors.errorMessage &&
+      <Alert bsStyle="danger">{loginFormErrors.errorMessage}</Alert>}
       <FormGroup>
-        <Button type="submit">
+        <Button type="submit" onClick={onSubmit}>
           Sign in
         </Button>
       </FormGroup>
@@ -40,6 +42,7 @@ const LoginForm = ({onInputChange,loginFormErrors}) => {
 
 LoginForm.propTypes = {
   onInputChange:PropTypes.func.isRequired,
+  onSubmit:PropTypes.func.isRequired,
   loginFormErrors:PropTypes.object.isRequired
 };
 
