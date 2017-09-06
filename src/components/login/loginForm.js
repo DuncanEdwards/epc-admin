@@ -10,7 +10,7 @@ import {
   } from 'react-bootstrap';
 
 
-const LoginForm = ({onSubmit,onInputChange,loginFormErrors}) => {
+const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn}) => {
   return (
     <form>
       <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
@@ -32,9 +32,7 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors}) => {
       {loginFormErrors.errorMessage &&
       <Alert bsStyle="danger">{loginFormErrors.errorMessage}</Alert>}
       <FormGroup>
-        <Button type="submit" onClick={onSubmit}>
-          Sign in
-        </Button>
+        <Button disabled={isSigningIn} type="submit" onClick={onSubmit}>{isSigningIn ? 'Signing in...' : 'Sign in'}</Button>
       </FormGroup>
     </form>
   );
@@ -43,7 +41,8 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors}) => {
 LoginForm.propTypes = {
   onInputChange:PropTypes.func.isRequired,
   onSubmit:PropTypes.func.isRequired,
-  loginFormErrors:PropTypes.object.isRequired
+  loginFormErrors:PropTypes.object.isRequired,
+  isSigningIn:PropTypes.bool.isRequired
 };
 
 export default LoginForm;

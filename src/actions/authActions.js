@@ -2,6 +2,12 @@
 import * as types from './actionTypes';
 import Authorizer from '../components/authorizer/authorizer';
 
-export function getUser(user) {
-  return { type: types.GET_USER, user:Authorizer.GetUser() };
+
+export function refreshUser() {
+  return { type: types.REFRESH_USER, user:Authorizer.GetUser() };
+}
+
+export function loginUserSuccess(user) {
+  debugger;
+  return { type: types.SAVE_USER_SUCCESS, user };
 }

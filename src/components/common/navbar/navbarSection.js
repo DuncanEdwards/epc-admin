@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import MainNavbar from './mainNavbar';
-import * as authenticationActions from '../../../actions/authActions';
 
 class NavbarSection extends React.Component {
 
@@ -26,10 +25,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators (authenticationActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavbarSection);
+export default connect(mapStateToProps)(NavbarSection);

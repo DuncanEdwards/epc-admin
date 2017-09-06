@@ -2,25 +2,34 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
-/*import LoginDialog from './loginDialog';*/
-import * as userActions from '../../actions/userActions';
+import {withRouter} from "react-router-dom";
 import LoginDialog from './loginDialog';
-import AuthApi from '../../api/mock/mockAuthApi';
+import AuthApi from "../../api/mock/mockAuthApi";
+import Authorizer from "../authorizer/authorizer";
+import * as authActions  from "../../actions/authActions";
 
 class LoginPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
 
+    if (props.user.isValid) {
+      this.props.history.push('/');
+    }
+
     this.state = {
         email: "",
         password: "",
+        isSigningIn: false,
         loginFormErrors: this.getInitialFormErrors()
     };
+
+
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.attemptLogin = this.attemptLogin.bind(this);
   }
+
 
   getInitialFormErrors() {
     return  ({
@@ -33,9 +42,21 @@ class LoginPage extends React.Component {
   attemptLogin(event) {
     event.preventDefault();
     let {email, password} = this.state;
+    let {actions} = this.props;
     if (this.validateFields(email,password)) {
-      debugger;
-      let result = AuthApi.getToken(email, password);
+      this.setState({isSigningIn:true});
+      AuthApi.getToken(email, password).then( token =>
+      {
+        debugger;
+        console.log(token);
+        if (token) {
+          sessionStorage.setItem('jwtToken', token);
+          this.props.actions.refreshUser();
+          this.props.history.push('/');
+        }
+        this.setState({isSigningIn:false});
+      });
+
     }
   }
 
@@ -66,10 +87,33 @@ class LoginPage extends React.Component {
     return (
       <div>
         <h2>LoginPage</h2>
-        <LoginDialog onSubmit={this.attemptLogin} onInputChange={this.handleInputChange} loginFormErrors={this.state.loginFormErrors}/>
+        <LoginDialog
+          onSubmit={this.attemptLogin}
+          onInputChange={this.handleInputChange}
+          loginFormErrors={this.state.loginFormErrors}
+          isSigningIn={this.state.isSigningIn}/>
       </div>
     );
   }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  actions:PropTypes.object.isRequired,
+  user:PropTypes.object.isRequired,
+  history:PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    user:state.user
+  };
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(authActions, dispatch)
+    };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));

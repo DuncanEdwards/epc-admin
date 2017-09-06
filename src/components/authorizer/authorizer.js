@@ -7,8 +7,9 @@ class Authorizer extends React.Component {
 
   static GetUser() {
 
+    /*TODO: constants file*/
     let token = sessionStorage.getItem('jwtToken');
-    if (token === null) {
+    if (token == null) {
       return { isValid: false };
     }
 
@@ -20,7 +21,7 @@ class Authorizer extends React.Component {
     if(user.exp < Math.round((new Date()).getTime()/1000))
     {
       //Token expired (expired, return isValid=false)
-      user['isValid'] = false;
+      /*user['isValid'] = false;*/
     }
     return user;
   }
