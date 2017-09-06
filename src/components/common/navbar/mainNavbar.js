@@ -14,19 +14,19 @@ const MainNavbar = ({user}) => {
 
       {(user.isValid) &&
       <Nav>
-        <NavDropdown title="Jobs">
+        <NavDropdown id="jobs" title="Jobs">
           <MenuItem href="/jobs">All Jobs</MenuItem>
           {true && <MenuItem href="/addjobs">Add Job</MenuItem>}
         </NavDropdown>
         {true &&
-          <NavDropdown title="Users">
+          <NavDropdown id="users" title="Users">
             <MenuItem href="/users">All Users</MenuItem>
             {true && <MenuItem href="/adduser">Add User</MenuItem>}
           </NavDropdown>}
       </Nav>}
       {(user.isValid) &&
       <Nav pullRight>
-        <NavDropdown title="Duncan Edwards">
+        <NavDropdown id="user" title="Duncan Edwards">
           <MenuItem>Administrator</MenuItem>
           <MenuItem divider />
           <MenuItem href="/changepassword">Change Password</MenuItem>

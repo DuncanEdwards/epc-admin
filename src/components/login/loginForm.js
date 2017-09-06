@@ -13,7 +13,7 @@ import {
 const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn}) => {
   return (
     <form>
-      <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
+      <FormGroup focus={loginFormErrors.isEmailError} validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="user" />
@@ -21,7 +21,7 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn}) => {
             <FormControl  onChange={onInputChange} type="email" placeholder="Email" />
           </InputGroup>
       </FormGroup>
-      <FormGroup controlId="password" validationState={(loginFormErrors.isPasswordError)?'error':null}>
+      <FormGroup autoFocus={(loginFormErrors.isPasswordError)} controlId="password" validationState={(loginFormErrors.isPasswordError)?'error':null}>
         <InputGroup>
           <InputGroup.Addon>
             <Glyphicon glyph="lock" />

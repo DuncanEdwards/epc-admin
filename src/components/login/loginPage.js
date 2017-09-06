@@ -13,10 +13,6 @@ class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    if (props.user.isValid) {
-      this.props.history.push('/');
-    }
-
     this.state = {
         email: "",
         password: "",
@@ -24,12 +20,16 @@ class LoginPage extends React.Component {
         loginFormErrors: this.getInitialFormErrors()
     };
 
-
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.attemptLogin = this.attemptLogin.bind(this);
   }
 
+  componentWillMount() {
+    //If we're already logged in, move to home page
+    if (this.props.user.isValid) {
+      this.props.history.push('/');
+    }
+  }
 
   getInitialFormErrors() {
     return  ({
@@ -40,19 +40,26 @@ class LoginPage extends React.Component {
   }
 
   attemptLogin(event) {
+
+    //Stop the form from actually being submitted
     event.preventDefault();
+
     let {email, password} = this.state;
     let {actions} = this.props;
+
+    //Do client side validation
     if (this.validateFields(email,password)) {
       this.setState({isSigningIn:true});
       AuthApi.getToken(email, password).then( token =>
       {
-        debugger;
-        console.log(token);
         if (token) {
           sessionStorage.setItem('jwtToken', token);
           this.props.actions.refreshUser();
           this.props.history.push('/');
+        } else {
+          let loginFormErrors = this.getInitialFormErrors();
+          loginFormErrors.errorMessage = 'Invalid username or password';
+          this.setState({loginFormErrors:loginFormErrors});
         }
         this.setState({isSigningIn:false});
       });
@@ -86,7 +93,6 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <h2>LoginPage</h2>
         <LoginDialog
           onSubmit={this.attemptLogin}
           onInputChange={this.handleInputChange}
