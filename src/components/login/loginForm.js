@@ -2,7 +2,6 @@ import React,{PropTypes} from 'react';
 import {
   Alert,
   Button,
-  ControlLabel,
   FormGroup,
   FormControl,
   Glyphicon,
@@ -16,7 +15,7 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn, emailInp
       <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
           <InputGroup>
             <InputGroup.Addon>
-              <Glyphicon glyph="user" />
+              <Glyphicon glyph="envelope" />
             </InputGroup.Addon>
             <FormControl ref={emailInputRef} onChange={onInputChange} type="email" placeholder="Email" />
           </InputGroup>
@@ -32,8 +31,9 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn, emailInp
       {loginFormErrors.errorMessage &&
       <Alert bsStyle="danger">{loginFormErrors.errorMessage}</Alert>}
       <FormGroup>
-        <Button disabled={isSigningIn} type="submit" onClick={onSubmit}>{isSigningIn ? 'Signing in...' : 'Sign in'}</Button>
+        <Button bsStyle="primary" disabled={isSigningIn} type="submit" onClick={onSubmit}>{isSigningIn ? 'Signing in...' : 'Sign in'}</Button>
       </FormGroup>
+      <a href="/forgotpassword">Forgot password?</a>
     </form>
   );
 };
