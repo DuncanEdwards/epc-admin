@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
@@ -67,6 +68,13 @@ class LoginPage extends React.Component {
     }
   }
 
+  focusToInput(inputNode) {
+    let node = ReactDOM.findDOMNode(inputNode);
+    if (node && node.focus instanceof Function) {
+      node.focus();
+    }
+  }
+
   /*Replace paramters with state*/
   validateFields(email,password) {
     let loginFormErrors = this.getInitialFormErrors();
@@ -74,9 +82,11 @@ class LoginPage extends React.Component {
     if ((!email) || (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))) {
       loginFormErrors.errorMessage = 'Please enter a valid email address';
       loginFormErrors.isEmailError = true;
+      this.focusToInput(this.emailInputRef);
     } else if (!password) {
       loginFormErrors.errorMessage = 'Please enter a valid password';
       loginFormErrors.isPasswordError = true;
+      this.focusToInput(this.passwordInputRef);
     }
 
     this.setState({loginFormErrors:loginFormErrors});
@@ -97,7 +107,9 @@ class LoginPage extends React.Component {
           onSubmit={this.attemptLogin}
           onInputChange={this.handleInputChange}
           loginFormErrors={this.state.loginFormErrors}
-          isSigningIn={this.state.isSigningIn}/>
+          isSigningIn={this.state.isSigningIn}
+          emailInputRef={el => this.emailInputRef = el}
+          passwordInputRef={el => this.passwordInputRef = el} />
       </div>
     );
   }

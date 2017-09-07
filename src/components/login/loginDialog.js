@@ -22,10 +22,4 @@ const LoginDialog = (props) => {
   );
 };
 
-LoginForm.propTypes = {
-  onInputChange:PropTypes.func.isRequired,
-  onSubmit:PropTypes.func.isRequired,
-  loginFormErrors:PropTypes.object.isRequired
-};
-
 export default LoginDialog;

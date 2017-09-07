@@ -10,23 +10,23 @@ import {
   } from 'react-bootstrap';
 
 
-const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn}) => {
+const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn, emailInputRef, passwordInputRef}) => {
   return (
     <form>
-      <FormGroup focus={loginFormErrors.isEmailError} validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
+      <FormGroup validationState={(loginFormErrors.isEmailError)?'error':null} controlId="email">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="user" />
             </InputGroup.Addon>
-            <FormControl  onChange={onInputChange} type="email" placeholder="Email" />
+            <FormControl ref={emailInputRef} onChange={onInputChange} type="email" placeholder="Email" />
           </InputGroup>
       </FormGroup>
-      <FormGroup autoFocus={(loginFormErrors.isPasswordError)} controlId="password" validationState={(loginFormErrors.isPasswordError)?'error':null}>
+      <FormGroup controlId="password" validationState={(loginFormErrors.isPasswordError)?'error':null}>
         <InputGroup>
           <InputGroup.Addon>
             <Glyphicon glyph="lock" />
           </InputGroup.Addon>
-          <FormControl onChange={onInputChange} type="password" placeholder="Password" />
+          <FormControl ref={passwordInputRef} onChange={onInputChange} type="password" placeholder="Password" />
         </InputGroup>
       </FormGroup>
       {loginFormErrors.errorMessage &&
@@ -42,7 +42,9 @@ LoginForm.propTypes = {
   onInputChange:PropTypes.func.isRequired,
   onSubmit:PropTypes.func.isRequired,
   loginFormErrors:PropTypes.object.isRequired,
-  isSigningIn:PropTypes.bool.isRequired
+  isSigningIn:PropTypes.bool.isRequired,
+  emailInputRef:PropTypes.func.isRequired,
+  passwordInputRef:PropTypes.func.isRequired
 };
 
 export default LoginForm;
