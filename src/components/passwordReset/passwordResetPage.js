@@ -15,8 +15,8 @@ class PasswordResetPage extends React.Component {
 
     this.state = {
         email: "",
-        isSigningIn: false,
-        errorMessage: ''
+        isResetting: false,
+        errorMessage: null
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,6 +26,7 @@ class PasswordResetPage extends React.Component {
   getInitialFormErrors() {
     return  ({
           errorMessage: '',
+          successMessage: '',
           isEmailError: false,
           isPasswordError: false
         });
@@ -36,14 +37,21 @@ class PasswordResetPage extends React.Component {
     //Stop the form from actually being submitted
     event.preventDefault();
 
-    let {email, password} = this.state;
+    debugger;
+
+    let {email} = this.state;
 
     //Do client side validation
-    if (this.validateFields(email,password)) {
-      this.setState({isSigningIn:true});
-      AuthApi.getToken(email, password).then( token =>
+    if (this.validateFields(email)) {
+      this.setState({isResetting:true});
+      AuthApi.resetPassword(email).then( success =>
       {
-        this.setState({isSigningIn:false});
+        let successMessage = '';
+        if (success) {
+          successMessage = "Passwod reset email sent to " + this.state.email + ".";
+        }
+        this.setState({successMessage});
+        this.setState({isResetting:false});
       });
 
     }
@@ -57,7 +65,7 @@ class PasswordResetPage extends React.Component {
   }
 
   /*Replace paramters with state*/
-  validateFields(email,password) {
+  validateFields(email) {
     let loginFormErrors = this.getInitialFormErrors();
     let errorMessage = null;
 
@@ -66,7 +74,7 @@ class PasswordResetPage extends React.Component {
       this.focusToInput(this.emailInputRef);
     }
     this.setState({errorMessage});
-    return errorMessage == '';
+    return (errorMessage == null);
   }
 
   handleInputChange(event) {
@@ -82,7 +90,8 @@ class PasswordResetPage extends React.Component {
           onSubmit={this.attemptReset}
           onInputChange={this.handleInputChange}
           errorMessage={this.state.errorMessage}
-          isResetting={this.state.isSigningIn}
+          successMessage={this.state.successMessage}
+          isResetting={this.state.isResetting}
           emailInputRef={el => this.emailInputRef = el} />
       </div>
     );
@@ -90,7 +99,6 @@ class PasswordResetPage extends React.Component {
 }
 
 PasswordResetPage.propTypes = {
-  user:PropTypes.object.isRequired,
   history:PropTypes.object.isRequired
 };
 

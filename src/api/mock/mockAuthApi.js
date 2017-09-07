@@ -14,6 +14,15 @@ class AuthApi {
       }, delay);
     });
   }
+
+  static resetPassword(email, password) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        //Obviously implement this
+        resolve(true);
+      }, delay);
+    });
+  }
 }
 
 export default AuthApi;

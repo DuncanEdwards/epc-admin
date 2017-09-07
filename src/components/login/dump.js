@@ -24,6 +24,6 @@
         </div>
     </div>
     <div style={{display: 'none'}} id="login-alert" className="alert alert-danger col-sm-12"></div>
-    <a href="#" style={{marginLeft: 20 + 'px'}}>Forgot password?</a>
+
 
 </form>
