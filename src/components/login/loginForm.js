@@ -33,7 +33,7 @@ const LoginForm = ({onSubmit,onInputChange,loginFormErrors,isSigningIn, emailInp
       <FormGroup>
         <Button bsStyle="primary" disabled={isSigningIn} type="submit" onClick={onSubmit}>{isSigningIn ? 'Signing in...' : 'Sign in'}</Button>
       </FormGroup>
-      <a href="/forgotpassword">Forgot password?</a>
+      <a href="/resetpassword">Forgot password?</a>
     </form>
   );
 };

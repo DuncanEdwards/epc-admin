@@ -48,7 +48,7 @@ class PasswordResetPage extends React.Component {
       {
         let successMessage = '';
         if (success) {
-          successMessage = "Passwod reset email sent to " + this.state.email + ".";
+          successMessage = "Password reset email sent to " + this.state.email + ".";
         }
         this.setState({successMessage});
         this.setState({isResetting:false});

@@ -11,7 +11,7 @@ const PasswordResetDialog = (props) => {
           </div>
 
           <div style={{paddingTop: 30 + 'px'}} className="panel-body" >
-            <p>{"Please enter you register email address below and we'll send you an email to get you back on track"}</p><br/>
+            <p>{"Please enter your email address below and we'll send you an email to get you back on track"}</p><br/>
             <PasswordResetForm {...props}/>
           </div>
 
