@@ -2,7 +2,20 @@ import delay from './delay';
 
 class AuthApi {
   static getToken(email, password) {
+
+
     return new Promise((resolve, reject) => {
+
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      let myInit = { method: 'POST', headers: myHeaders, body: JSON.stringify({ username: email, password }) };
+      let request = new Request('http://localhost:61469/api/v1/account/token', myInit);
+      /* TODO constants for API bases */
+      fetch(request).then( function(response) {
+        debugger;
+
+      });
+
       setTimeout(() => {
         //Obviously implement this
         if ((email == 'dun_edwards@yahoo.com') && (password == 'test')) {
