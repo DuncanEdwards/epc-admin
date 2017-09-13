@@ -51,15 +51,15 @@ class LoginPage extends React.Component {
     //Do client side validation
     if (this.validateFields(email,password)) {
       this.setState({isSigningIn:true});
-      AuthApi.getToken(email, password).then( token =>
+      AuthApi.getToken(email, password).then( response =>
       {
-        if (token) {
-          sessionStorage.setItem('jwtToken', token);
+        if (response.token) {
+          sessionStorage.setItem('jwtToken', response.token);
           this.props.actions.refreshUser();
           this.props.history.push('/');
         } else {
           let loginFormErrors = this.getInitialFormErrors();
-          loginFormErrors.errorMessage = 'Invalid username or password';
+          loginFormErrors.errorMessage = response.errorMessage;
           this.setState({loginFormErrors:loginFormErrors});
         }
         this.setState({isSigningIn:false});

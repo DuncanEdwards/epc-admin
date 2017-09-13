@@ -1,30 +1,26 @@
 import delay from './delay';
+import getRequest from '../apiHelper';
 
 class AuthApi {
+
   static getToken(email, password) {
 
 
     return new Promise((resolve, reject) => {
 
-      let myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      let myInit = { method: 'POST', headers: myHeaders, body: JSON.stringify({ username: email, password }) };
-      let request = new Request('http://localhost:61469/api/v1/account/token', myInit);
-      /* TODO constants for API bases */
+      let request = getRequest({ method:'POST', body:JSON.stringify({ username: email, password }) })
+
       fetch(request).then( function(response) {
-        debugger;
 
-      });
-
-      setTimeout(() => {
-        //Obviously implement this
-        if ((email == 'dun_edwards@yahoo.com') && (password == 'test')) {
-          //Token is expired for now
-          resolve('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiNWI0MDFmM2UtYTBkNS00YjdkLTkwMjYtZjFlZWQ2YTM0NjVjIiwiaWF0IjoxNTAzOTEyMTk4LCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNTAzOTEyMTk4LCJleHAiOjE1MDM5OTg1OTgsImlzcyI6IkV4YW1wbGVJc3N1ZXIiLCJhdWQiOiJFeGFtcGxlQXVkaWVuY2UifQ.Z6edDLAmdM-n62fMhtNfmjdupyAtw1br6JRVpokH430');
+        if (response.status == 200) {
+          //Return the access token
+          response.json().then( json => { resolve({token:json.access_token}); });
+        } else if (response.status == 403) {
+          resolve({errorMessage:"Invalid username or password"});
         } else {
-          resolve(null);
+          resolve({errorMessage:"Unexpected error"});
         }
-      }, delay);
+      });
     });
   }
 
