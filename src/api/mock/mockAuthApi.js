@@ -1,5 +1,6 @@
 import delay from './delay';
 import getRequest from '../apiHelper';
+import {HttpCodes} from '../httpCodes';
 
 class AuthApi {
 
@@ -8,17 +9,22 @@ class AuthApi {
 
     return new Promise((resolve, reject) => {
 
-      let request = getRequest({ method:'POST', body:JSON.stringify({ username: email, password }) })
+      let request = getRequest(
+        {
+          method:'POST',
+          resource: 'account/token',
+          body:JSON.stringify({ username: email, password })
+        });
 
       fetch(request).then( function(response) {
 
-        if (response.status == 200) {
+        if (response.status == HttpCodes.success) {
           //Return the access token
           response.json().then( json => { resolve({token:json.access_token}); });
-        } else if (response.status == 403) {
+        } else if (response.status == HttpCodes.forbidden) {
           resolve({errorMessage:"Invalid username or password"});
         } else {
-          resolve({errorMessage:"Unexpected error"});
+          resolve({errorMessage:"Unexpected error, please try again later."});
         }
       });
     });

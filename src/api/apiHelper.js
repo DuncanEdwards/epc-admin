@@ -1,3 +1,4 @@
+const baseRestUri = 'http://localhost:61469/api/v1/';
 
 function getHeaders(isRemoveAuthorize) {
     let headers = new Headers();
@@ -16,7 +17,8 @@ export default function getRequest(options) {
   let init = {
       method: options.method,
       headers,
-      body: options.body};
+      body: options.body
+      };
 
-  return new Request('http://localhost:61469/api/v1/account/token', init);
+  return new Request(baseRestUri + options.resource, init);
 }
