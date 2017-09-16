@@ -26,7 +26,7 @@ const MainNavbar = ({user}) => {
       </Nav>}
       {(user.isValid) &&
       <Nav pullRight>
-        <NavDropdown id="user" title="Duncan Edwards">
+        <NavDropdown id="user" title={(user.given_name + ' ' + user.family_name)}>
           <MenuItem>Administrator</MenuItem>
           <MenuItem divider />
           <MenuItem href="/changepassword">Change Password</MenuItem>
