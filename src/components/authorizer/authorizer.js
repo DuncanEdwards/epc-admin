@@ -43,6 +43,10 @@ class Authorizer extends React.Component {
     return userRoles.includes(this.GetUserRole(user));
   }
 
+  static LogoutCurrentUser() {
+    sessionStorage.removeItem('jwtToken');
+  }
+
 }
 
 export default Authorizer;

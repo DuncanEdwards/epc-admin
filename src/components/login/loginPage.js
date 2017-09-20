@@ -48,6 +48,7 @@ class LoginPage extends React.Component {
     let {email, password} = this.state;
     let {actions} = this.props;
 
+
     //Do client side validation
     if (this.validateFields(email,password)) {
       this.setState({isSigningIn:true});
