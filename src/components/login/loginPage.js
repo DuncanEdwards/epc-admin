@@ -5,9 +5,9 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import LoginDialog from './loginDialog';
-import AuthApi from "../../api/mock/mockAuthApi";
+import AccountApi from "../../api/accountApi";
 import Authorizer from "../authorizer/authorizer";
-import * as authActions  from "../../actions/authActions";
+import * as accountActions  from "../../actions/accountActions";
 
 class LoginPage extends React.Component {
 
@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
     //Do client side validation
     if (this.validateFields(email,password)) {
       this.setState({isSigningIn:true});
-      AuthApi.getToken(email, password).then( response =>
+      AccountApi.getToken(email, password).then( response =>
       {
         if (response.token) {
           sessionStorage.setItem('jwtToken', response.token);
@@ -131,7 +131,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(authActions, dispatch)
+        actions: bindActionCreators(accountActions, dispatch)
     };
 }
 

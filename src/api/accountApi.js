@@ -1,8 +1,7 @@
-import delay from './delay';
-import getRequest from '../apiHelper';
+import getRequest from './apiHelper';
 import HttpStatus from 'http-status-codes';
 
-class AuthApi {
+class AccountApi {
 
   static getToken(email, password) {
 
@@ -30,14 +29,22 @@ class AuthApi {
     });
   }
 
-  static resetPassword(email, password) {
+  static resetPassword(email, resetLink, isNewUser) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        //Obviously implement this
-        resolve(true);
-      }, delay);
+
+      let request = getRequest(
+        {
+          method:'POST',
+          resource: 'account/sendresetlink',
+          body:JSON.stringify({ email, resetLink, isNewUser })
+        });
+
+      fetch(request).then( function(response) {
+        debugger;
+      });
+
     });
   }
 }
 
-export default AuthApi;
+export default AccountApi;

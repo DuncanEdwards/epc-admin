@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as authActions  from "../../actions/authActions";
+import * as accountActions  from "../../actions/accountActions";
 import Authorizer from "../authorizer/authorizer";
 import LogoutDialog from "./logoutDialog";
 
@@ -30,7 +30,7 @@ LogoutPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(authActions, dispatch)
+        actions: bindActionCreators(accountActions, dispatch)
     };
 }
 

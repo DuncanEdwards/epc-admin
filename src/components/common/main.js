@@ -17,6 +17,7 @@ const Main = () => {
         <PrivateRoute path="/logout" component={LogoutPage}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/resetpassword" component={ResetPasswordPage}/>
+        <Route path="/choosepassword" component={ResetPasswordPage}/>
         <Route path="/notauthorized" render={() => (<h2>Access Denied</h2>)}/>
       </Switch>
     </div>

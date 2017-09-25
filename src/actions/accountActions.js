@@ -8,6 +8,5 @@ export function refreshUser() {
 }
 
 export function loginUserSuccess(user) {
-  debugger;
   return { type: types.SAVE_USER_SUCCESS, user };
 }

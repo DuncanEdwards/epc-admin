@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './components/App';
 import {loadUsers} from './actions/userActions';
-import {refreshUser} from './actions/authActions';
+import {refreshUser} from './actions/accountActions';
 import {BrowserRouter} from 'react-router-dom';
 
 const store = configureStore();
