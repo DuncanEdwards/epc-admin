@@ -7,11 +7,11 @@ const ChoosePasswordDialog = (props) => {
 
       <div className="panel panel-info" >
           <div className="panel-heading">
-              <div style={{textAlign: 'center'}} className="panel-title">Choose password</div>
+              <div style={{textAlign: 'center'}} className="panel-title">{(props.isNewUser)?"Choose password":"Change password"}</div>
           </div>
 
           <div style={{paddingTop: 30 + 'px'}} className="panel-body" >
-            <p>{"Please enter your email address below and we'll send you an email to get you back on track"}</p><br/>
+            <p>{(props.isNewUser)?"Please enter a new password.":"Please enter a password for your user account."}</p><br/>
             <ChoosePasswordForm {...props}/>
           </div>
 
@@ -19,6 +19,11 @@ const ChoosePasswordDialog = (props) => {
 
   </div>
   );
+};
+
+ChoosePasswordDialog.propTypes = {
+  onInputChange:PropTypes.func.isRequired,
+  isNewUser:PropTypes.bool.isRequired
 };
 
 export default ChoosePasswordDialog;

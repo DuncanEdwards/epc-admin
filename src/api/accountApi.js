@@ -25,6 +25,8 @@ class AccountApi {
         } else {
           resolve({errorMessage:"Unexpected error, please try again later."});
         }
+      }).catch(function(error) {
+        resolve({errorMessage:"Unexpected error, please try again later."});
       });
     });
   }
@@ -47,6 +49,8 @@ class AccountApi {
         } else {
           resolve("Unexpected error, please try again later.");
         }
+      }).catch(function(error) {
+        resolve("Unexpected error, please try again later.");
       });
 
     });

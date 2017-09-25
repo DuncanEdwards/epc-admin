@@ -9,10 +9,10 @@ import {
   } from 'react-bootstrap';
 
 
-const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, password1InputRef, password2InputRef}) => {
+const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, isPassword1Error, password1InputRef, password2InputRef}) => {
   return (
     <form>
-      <FormGroup validationState={(errorMessage)?'error':null} controlId="password1">
+      <FormGroup validationState={(errorMessage && isPassword1Error)?'error':null} controlId="password1">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -20,7 +20,7 @@ const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,
             <FormControl ref={password1InputRef} onChange={onInputChange} type="password" placeholder="New Password" />
           </InputGroup>
       </FormGroup>
-      <FormGroup validationState={(errorMessage)?'error':null} controlId="password2">
+      <FormGroup validationState={(errorMessage && (!isPassword1Error))?'error':null} controlId="password2">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -46,6 +46,7 @@ ChoosePasswordForm.propTypes = {
   errorMessage:PropTypes.string,
   successMessage:PropTypes.string,
   isResetting:PropTypes.bool.isRequired,
+  isPassword1Error:PropTypes.bool.isRequired,
   password1InputRef:PropTypes.func.isRequired,
   password2InputRef:PropTypes.func.isRequired
 };

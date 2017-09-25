@@ -4,7 +4,7 @@ import UsersPage from '../user/UsersPage';
 import LoginPage from '../login/loginPage';
 import LogoutPage from '../logout/logoutPage';
 import ResetPasswordPage from '../passwordReset/passwordResetPage';
-import ChoosePasswordPage from '../choosePassword/choosePasswordDialog';
+import ChoosePasswordPage from '../choosePassword/choosePasswordPage';
 import Authorizer from '../authorizer/authorizer';
 import PrivateRoute from '../authorizer/privateRoute';
 import App from '../App';
