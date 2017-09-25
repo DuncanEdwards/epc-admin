@@ -43,16 +43,16 @@ class PasswordResetPage extends React.Component {
     if (this.validateFields(email)) {
       this.setState({isResetting:true});
       let choosePasswordLink = window.location.href.replace('resetpassword', 'choosepassword');
-      AccountApi.resetPassword(email,choosePasswordLink,false).then( success =>
+      AccountApi.resetPassword(email,choosePasswordLink,false).then( message =>
       {
-        let successMessage = '';
-        if (success) {
-          successMessage = "Password reset email sent to " + this.state.email + ".";
+        if (message) {
+          this.setState({errorMessage:message,isEmailError:true});
+        } else {
+          this.setState({successMessage:'Password email successfully sent to ' + email + '. Please click on the link in the email.'});
         }
-        this.setState({successMessage});
+
         this.setState({isResetting:false});
       });
-
     }
   }
 

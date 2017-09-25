@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
-import PasswordResetDialog from './passwordResetDialog';
+import ChoosePasswordDialog from './choosePasswordDialog';
 import AccountApi from "../../api/accountApi";
 import * as authActions  from "../../actions/accountActions";
 
-class PasswordResetPage extends React.Component {
+class ChoosePasswordPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -20,7 +20,7 @@ class PasswordResetPage extends React.Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.attemptReset = this.attemptReset.bind(this);
+    this.choosePassword = this.choosePassword.bind(this);
   }
 
   getInitialFormErrors() {
@@ -32,28 +32,15 @@ class PasswordResetPage extends React.Component {
         });
   }
 
-  attemptReset(event) {
+  choosePassword(event) {
 
     //Stop the form from actually being submitted
     event.preventDefault();
 
-    let {email} = this.state;
+    console.log(this.props.params.userId)
 
-    //Do client side validation
-    if (this.validateFields(email)) {
-      this.setState({isResetting:true});
-      let choosePasswordLink = window.location.href.replace('resetpassword', 'choosepassword');
-      AccountApi.resetPassword(email,choosePasswordLink,false).then( success =>
-      {
-        let successMessage = '';
-        if (success) {
-          successMessage = "Password reset email sent to " + this.state.email + ".";
-        }
-        this.setState({successMessage});
-        this.setState({isResetting:false});
-      });
+    let {password1,password2}  = this.state;
 
-    }
   }
 
   focusToInput(inputNode) {
@@ -61,19 +48,6 @@ class PasswordResetPage extends React.Component {
     if (node && node.focus instanceof Function) {
       node.focus();
     }
-  }
-
-  /*Replace paramters with state*/
-  validateFields(email) {
-    let loginFormErrors = this.getInitialFormErrors();
-    let errorMessage = null;
-
-    if ((!email) || (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))) {
-      errorMessage = 'Please enter a valid email address';
-      this.focusToInput(this.emailInputRef);
-    }
-    this.setState({errorMessage});
-    return (errorMessage == null);
   }
 
   handleInputChange(event) {
@@ -85,7 +59,7 @@ class PasswordResetPage extends React.Component {
   render() {
     return (
       <div>
-        <PasswordResetDialog
+        <ChoosePasswordDialog
           onSubmit={this.attemptReset}
           onInputChange={this.handleInputChange}
           errorMessage={this.state.errorMessage}
@@ -97,8 +71,8 @@ class PasswordResetPage extends React.Component {
   }
 }
 
-PasswordResetPage.propTypes = {
+ChoosePasswordPage.propTypes = {
   history:PropTypes.object.isRequired
 };
 
-export default withRouter(PasswordResetPage);
+export default withRouter(ChoosePasswordPage);

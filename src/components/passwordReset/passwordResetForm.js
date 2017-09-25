@@ -27,7 +27,6 @@ const PasswordResetForm = ({onSubmit,onInputChange,errorMessage,successMessage,i
       <FormGroup>
         <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Resetting...' : 'Reset my password'}</Button>
       </FormGroup>
-      <a href="/login">Return to login</a>
     </form>
   );
 };

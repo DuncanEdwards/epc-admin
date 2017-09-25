@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import UserList from './UserList';
 import * as userActions from '../../actions/userActions';
+import queryString from 'query-string';
 
 class UsersPage extends React.Component {
 

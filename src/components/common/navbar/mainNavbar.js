@@ -8,7 +8,7 @@ const MainNavbar = ({user}) => {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          EPC Administration
+          <a href="/">EPC Administration</a>
         </Navbar.Brand>
       </Navbar.Header>
 

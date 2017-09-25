@@ -21,7 +21,7 @@ class AccountApi {
           //Return the access token
           response.json().then( json => { resolve({token:json.access_token}); });
         } else if (response.status == HttpStatus.FORBIDDEN) {
-          resolve({errorMessage:"Invalid username or password"});
+          resolve({errorMessage:"Invalid username or password."});
         } else {
           resolve({errorMessage:"Unexpected error, please try again later."});
         }
@@ -40,7 +40,13 @@ class AccountApi {
         });
 
       fetch(request).then( function(response) {
-        debugger;
+        if (response.status == HttpStatus.OK) {
+          resolve("");
+        } else if (response.status == HttpStatus.FORBIDDEN) {
+          resolve("This email address is not a user.");
+        } else {
+          resolve("Unexpected error, please try again later.");
+        }
       });
 
     });

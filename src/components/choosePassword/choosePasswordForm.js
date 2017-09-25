@@ -9,36 +9,45 @@ import {
   } from 'react-bootstrap';
 
 
-const PasswordResetForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting,emailInputRef}) => {
+const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, password1InputRef, password2InputRef}) => {
   return (
     <form>
-      <FormGroup validationState={(errorMessage)?'error':null} controlId="email">
+      <FormGroup validationState={(errorMessage)?'error':null} controlId="password1">
           <InputGroup>
             <InputGroup.Addon>
-              <Glyphicon glyph="envelope" />
+              <Glyphicon glyph="lock" />
             </InputGroup.Addon>
-            <FormControl ref={emailInputRef} onChange={onInputChange} type="email" placeholder="Email" />
+            <FormControl ref={password1InputRef} onChange={onInputChange} type="password" placeholder="New Password" />
           </InputGroup>
       </FormGroup>
+      <FormGroup validationState={(errorMessage)?'error':null} controlId="password2">
+          <InputGroup>
+            <InputGroup.Addon>
+              <Glyphicon glyph="lock" />
+            </InputGroup.Addon>
+            <FormControl ref={password2InputRef} onChange={onInputChange} type="password" placeholder="Repeat password" />
+          </InputGroup>
+      </FormGroup>
+
       {errorMessage &&
       <Alert bsStyle="danger">{errorMessage}</Alert>}
       {successMessage &&
       <Alert bsStyle="success">{successMessage}</Alert>}
       <FormGroup>
-        <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Resetting...' : 'Reset my password'}</Button>
+        <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Changing password...' : 'Change my password'}</Button>
       </FormGroup>
-      <a href="/login">Return to login</a>
     </form>
   );
 };
 
-PasswordResetForm.propTypes = {
+ChoosePasswordForm.propTypes = {
   onInputChange:PropTypes.func.isRequired,
   onSubmit:PropTypes.func.isRequired,
   errorMessage:PropTypes.string,
   successMessage:PropTypes.string,
   isResetting:PropTypes.bool.isRequired,
-  emailInputRef:PropTypes.func.isRequired
+  password1InputRef:PropTypes.func.isRequired,
+  password2InputRef:PropTypes.func.isRequired
 };
 
-export default PasswordResetForm;
+export default ChoosePasswordForm;
