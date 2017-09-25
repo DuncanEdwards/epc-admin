@@ -20,8 +20,6 @@ class ChoosePasswordPage extends React.Component {
         errorMessage: null
     };
 
-    console.log(queryString.parse(location.search.toLowerCase()).isnewuser);
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.choosePassword = this.choosePassword.bind(this);
 
