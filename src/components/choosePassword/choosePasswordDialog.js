@@ -7,11 +7,11 @@ const ChoosePasswordDialog = (props) => {
 
       <div className="panel panel-info" >
           <div className="panel-heading">
-              <div style={{textAlign: 'center'}} className="panel-title">{(props.isNewUser)?"Choose password":"Change password"}</div>
+              <div style={{textAlign: 'center'}} className="panel-title">{(props.isNewUser)?"Choose password":"Reset password"}</div>
           </div>
 
           <div style={{paddingTop: 30 + 'px'}} className="panel-body" >
-            <p>{(props.isNewUser)?"Please enter a new password.":"Please enter a password for your user account."}</p><br/>
+            <p>{(props.isNewUser)?"Please enter a password to actviate your user account.":"Please enter a new password for your user account."}</p><br/>
             <ChoosePasswordForm {...props}/>
           </div>
 

@@ -15,9 +15,12 @@ class ChoosePasswordPage extends React.Component {
     super(props, context);
 
     this.state = {
-        email: "",
+        password1: "",
+        password2: "",
+        isPassword1Error: false,
         isResetting: false,
-        errorMessage: null
+        errorMessage: null,
+        successMessage: null
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,22 +28,12 @@ class ChoosePasswordPage extends React.Component {
 
   }
 
-  getInitialFormErrors() {
-    return  ({
-          errorMessage: '',
-          isPassword1Error: false,
-          successMessage: '',
-          isEmailError: false,
-          isPasswordError: false
-        });
-  }
-
   choosePassword(event) {
 
     //Stop the form from actually being submitted
     event.preventDefault();
 
-    this.setState({errorMessage:""});
+    this.setState({errorMessage:"",successMessage:""});
 
     let {password1,password2}  = this.state;
 
@@ -53,7 +46,26 @@ class ChoosePasswordPage extends React.Component {
     } else if (password1 != password2) {
       this.setState({isPassword1Error:false,errorMessage:"Passwords do not match"});
       this.focusToInput(this.password2InputRef);
+    } else {
+      this.setState({isResetting:true});
+      this.resetPassword(this.state.password1);
+      this.setState({isResetting:false});
     }
+
+  }
+
+  resetPassword(password) {
+      let rememberToken = queryString.parse(location.search.toLowerCase()).remembertoken;
+      if (rememberToken == null) {
+        this.setState({isPassword1Error:false,errorMessage:"Unexpected error resetting password"});
+      }
+      AccountApi.resetPassword(password, rememberToken).then( response =>   {
+        if (response.errorMessage) {
+          this.setState({errorMessage:response.errorMessage});
+        } else {
+          this.setState({successMessage:"Password successfully changed."});
+        }
+      });
 
   }
 

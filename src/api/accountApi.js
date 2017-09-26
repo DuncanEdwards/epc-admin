@@ -31,7 +31,7 @@ class AccountApi {
     });
   }
 
-  static resetPassword(email, resetLink, isNewUser) {
+  static sendResetLink(email, resetLink, isNewUser) {
     return new Promise((resolve, reject) => {
 
       let request = getRequest(
@@ -43,18 +43,43 @@ class AccountApi {
 
       fetch(request).then( function(response) {
         if (response.status == HttpStatus.OK) {
-          resolve("");
+          resolve({errorMessage:""});
         } else if (response.status == HttpStatus.FORBIDDEN) {
-          resolve("This email address is not a user.");
+          resolve({errorMessage:"This email address is not a user."});
         } else {
-          resolve("Unexpected error, please try again later.");
+          resolve({errorMessage:"Unexpected error, please try again later."});
         }
       }).catch(function(error) {
-        resolve("Unexpected error, please try again later.");
+        resolve({errorMessage:"Unexpected error, please try again later."});
       });
 
     });
   }
+
+  static resetPassword(newPassword, rememberToken) {
+    return new Promise((resolve, reject) => {
+      debugger;
+
+      let request = getRequest(
+        {
+          method:'PUT',
+          resource: 'account/resetpassword',
+          body:JSON.stringify({ password:newPassword, rememberToken })
+        });
+
+      fetch(request).then( function(response) {
+        if (response.status == HttpStatus.NO_CONTENT) {
+          resolve({errorMessage:""});
+        } else {
+          resolve({errorMessage:"Unable to reset password for this user."});
+        }
+      }).catch(function(error) {
+        resolve({errorMessage:"Unexpected error, please try again later."});
+      });
+
+    });
+  }
+
 }
 
 export default AccountApi;
