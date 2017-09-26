@@ -11,7 +11,7 @@ const ChoosePasswordDialog = (props) => {
           </div>
 
           <div style={{paddingTop: 30 + 'px'}} className="panel-body" >
-            <p>{(props.isNewUser)?"Please enter a password to actviate your user account.":"Please enter a new password for your user account."}</p><br/>
+            <p>{(props.isNewUser)?"Please enter a password to activate your user account.":"Please enter a new password for your user account."}</p><br/>
             <ChoosePasswordForm {...props}/>
           </div>
 

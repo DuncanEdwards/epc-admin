@@ -19,8 +19,10 @@ class ChoosePasswordPage extends React.Component {
         password2: "",
         isPassword1Error: false,
         isResetting: false,
+        isNewUser: (queryString.parse(location.search.toLowerCase()).isnewuser == "true"),
         errorMessage: null,
-        successMessage: null
+        successMessage: null,
+        isComplete:false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,7 +65,8 @@ class ChoosePasswordPage extends React.Component {
         if (response.errorMessage) {
           this.setState({errorMessage:response.errorMessage});
         } else {
-          this.setState({successMessage:"Password successfully changed."});
+          let successMessage = (this.state.isNewUser)?"User successfully activated.":"Password successfully changed.";
+          this.setState({successMessage,isComplete:true});
         }
       });
 
@@ -86,11 +89,12 @@ class ChoosePasswordPage extends React.Component {
     return (
       <div>
         <ChoosePasswordDialog
-          isNewUser={(queryString.parse(location.search.toLowerCase()).isnewuser == "true")}
+          isNewUser={this.state.isNewUser}
           onSubmit={this.choosePassword}
           onInputChange={this.handleInputChange}
           errorMessage={this.state.errorMessage}
           isPassword1Error={this.state.isPassword1Error}
+          isComplete={this.state.isComplete}
           successMessage={this.state.successMessage}
           isResetting={this.state.isResetting}
           password1InputRef={el => this.password1InputRef = el}

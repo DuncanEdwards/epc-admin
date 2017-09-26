@@ -9,10 +9,10 @@ import {
   } from 'react-bootstrap';
 
 
-const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, isPassword1Error, password1InputRef, password2InputRef}) => {
+const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, isComplete, isNewUser, isPassword1Error, password1InputRef, password2InputRef}) => {
   return (
     <form>
-      <FormGroup validationState={(errorMessage && (!isPassword1Error))?'error':null} controlId="password1">
+      <FormGroup validationState={(errorMessage && (isPassword1Error))?'error':null} controlId="password1">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -20,7 +20,7 @@ const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,
             <FormControl ref={password1InputRef} onChange={onInputChange} type="password" placeholder="New password" />
           </InputGroup>
       </FormGroup>
-      <FormGroup validationState={(errorMessage && isPassword1Error)?'error':null} controlId="password2">
+      <FormGroup validationState={(errorMessage && (!isPassword1Error))?'error':null} controlId="password2">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -33,10 +33,14 @@ const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,
       {errorMessage &&
       <Alert bsStyle="danger">{errorMessage}</Alert>}
       {successMessage &&
-      <Alert bsStyle="success">{successMessage}</Alert>}
+      <Alert bsStyle="success">{successMessage}<br/>Click <a href="/login">here</a> to login.</Alert>}
+      {(!isComplete) &&
       <FormGroup>
-        <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Changing password...' : 'Change my password'}</Button>
-      </FormGroup>
+        {isNewUser &&
+        <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Activating...' : 'Activate'}</Button>}
+        {(!isNewUser) &&
+        <Button bsStyle="primary" disabled={isResetting} type="submit" onClick={onSubmit}>{isResetting ? 'Changing password...' : 'Change my password'}</Button>}
+      </FormGroup>}
     </form>
   );
 };
@@ -47,6 +51,8 @@ ChoosePasswordForm.propTypes = {
   errorMessage:PropTypes.string,
   successMessage:PropTypes.string,
   isResetting:PropTypes.bool.isRequired,
+  isComplete:PropTypes.bool.isRequired,
+  isNewUser:PropTypes.bool.isRequired,
   isPassword1Error:PropTypes.bool.isRequired,
   password1InputRef:PropTypes.func.isRequired,
   password2InputRef:PropTypes.func.isRequired
