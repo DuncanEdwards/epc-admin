@@ -38,7 +38,7 @@ const MainNavbar = ({user}) => {
 };
 
 MainNavbar.propTypes = {
-  user:PropTypes.object.isRequired
+  user:PropTypes.object
 };
 
 export default MainNavbar;

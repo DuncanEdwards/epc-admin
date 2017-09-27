@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import LoginDialog from './loginDialog';
-import AccountApi from "../../api/accountApi";
 import Authorizer from "../authorizer/authorizer";
 import * as accountActions  from "../../actions/accountActions";
 
@@ -52,20 +51,23 @@ class LoginPage extends React.Component {
     //Do client side validation
     if (this.validateFields(email,password)) {
       this.setState({isSigningIn:true});
-      AccountApi.getToken(email, password).then( response =>
-      {
-        if (response.token) {
-          sessionStorage.setItem('jwtToken', response.token);
-          this.props.actions.refreshUser();
-          this.props.history.push('/');
-        } else {
-          let loginFormErrors = this.getInitialFormErrors();
-          loginFormErrors.errorMessage = response.errorMessage;
-          this.setState({loginFormErrors:loginFormErrors});
+      this.props.actions.getToken(email, password).then(
+        (response) => {
+          if (response.token) {
+            sessionStorage.setItem('jwtToken', response.token);
+            this.props.actions.refreshUser();
+            this.props.history.push('/');
+          } else {
+            let loginFormErrors = this.getInitialFormErrors();
+            loginFormErrors.errorMessage = response.errorMessage;
+            this.setState({loginFormErrors:loginFormErrors});
+            this.setState({isSigningIn:false});
+          }
+        }).
+        catch(error => {
+          debugger;
         }
-        this.setState({isSigningIn:false});
-      });
-
+      );
     }
   }
 

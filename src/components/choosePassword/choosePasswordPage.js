@@ -6,7 +6,7 @@ import {browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import ChoosePasswordDialog from './choosePasswordDialog';
 import AccountApi from "../../api/accountApi";
-import * as authActions  from "../../actions/accountActions";
+import * as accountActions  from "../../actions/accountActions";
 import queryString from 'query-string';
 
 class ChoosePasswordPage extends React.Component {
@@ -20,6 +20,7 @@ class ChoosePasswordPage extends React.Component {
         isPassword1Error: false,
         isResetting: false,
         isNewUser: (queryString.parse(location.search.toLowerCase()).isnewuser == "true"),
+        email: queryString.parse(location.search.toLowerCase()).email,
         errorMessage: null,
         successMessage: null,
         isComplete:false
@@ -65,8 +66,19 @@ class ChoosePasswordPage extends React.Component {
         if (response.errorMessage) {
           this.setState({errorMessage:response.errorMessage});
         } else {
-          let successMessage = (this.state.isNewUser)?"User successfully activated.":"Password successfully changed.";
-          this.setState({successMessage,isComplete:true});
+          this.props.actions.getToken(this.state.email, this.state.password1).then(
+            (response) => {
+              if (response.token) {
+                sessionStorage.setItem('jwtToken', response.token);
+                this.props.actions.refreshUser();
+                this.props.history.push('/');
+              } else {
+                this.setState({errorMessage:response.errorMessage});
+              }
+            }).
+            catch(error => {
+              debugger;
+            });
         }
       });
 
@@ -106,7 +118,14 @@ class ChoosePasswordPage extends React.Component {
 }
 
 ChoosePasswordPage.propTypes = {
+  actions:PropTypes.object.isRequired,
   history:PropTypes.object.isRequired
 };
 
-export default withRouter(ChoosePasswordPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(accountActions, dispatch)
+    };
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(ChoosePasswordPage));

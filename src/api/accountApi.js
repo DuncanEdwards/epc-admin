@@ -58,7 +58,6 @@ class AccountApi {
 
   static resetPassword(newPassword, rememberToken) {
     return new Promise((resolve, reject) => {
-      debugger;
 
       let request = getRequest(
         {

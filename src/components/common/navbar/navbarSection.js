@@ -16,7 +16,7 @@ class NavbarSection extends React.Component {
 }
 
 NavbarSection.propTypes = {
-  user:PropTypes.object.isRequired
+  user:PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
