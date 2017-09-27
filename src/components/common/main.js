@@ -5,6 +5,7 @@ import LoginPage from '../login/loginPage';
 import LogoutPage from '../logout/logoutPage';
 import ResetPasswordPage from '../passwordReset/passwordResetPage';
 import ChoosePasswordPage from '../choosePassword/choosePasswordPage';
+import HomePage from '../home/homePage';
 import Authorizer from '../authorizer/authorizer';
 import PrivateRoute from '../authorizer/privateRoute';
 import App from '../App';
@@ -13,7 +14,7 @@ const Main = () => {
   return (
     <div className="container">
       <Switch>
-        <PrivateRoute exact path="/" render={() => <h2>Home page2</h2>}/>
+        <PrivateRoute exact path="/" component={HomePage}/>
         <PrivateRoute path="/users" component={UsersPage} roles={["Administrator"]}/>
         <PrivateRoute path="/logout" component={LogoutPage}/>
         <Route path="/login" component={LoginPage}/>
