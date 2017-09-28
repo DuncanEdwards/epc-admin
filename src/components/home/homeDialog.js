@@ -12,6 +12,11 @@ const HomeDialog = ({entryReason, onDismiss, isAlertVisible}) => {
         <p>This is the area where you can perform all the functionality that you need to do your EPC stuff, whatever that is exactly.</p>
       </Alert>
     }
+    {(entryReason == "passwordchanged") && (isAlertVisible) &&
+      <Alert bsStyle="success" onDismiss={onDismiss}>
+        <p>Your password has been successfully changed.</p>
+      </Alert>
+    }
 
     <p>Put stuff here!</p>
   </div>
@@ -19,7 +24,7 @@ const HomeDialog = ({entryReason, onDismiss, isAlertVisible}) => {
 };
 
 HomeDialog.propTypes = {
-  entryReason:PropTypes.string.isRequired,
+  entryReason:PropTypes.string,
   onDismiss:PropTypes.func.isRequired,
   isAlertVisible:PropTypes.bool.isRequired
 };

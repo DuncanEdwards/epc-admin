@@ -12,23 +12,11 @@ export function loginUserSuccess(user) {
   return { type: types.SAVE_USER_SUCCESS, user };
 }
 
-export function getTokenSuccess(token) {
-  return { type: types.GET_TOKEN_SUCCESS, token };
-}
-
-export function getTokenFail() {
-  return { type: types.GET_TOKEN_FAIL, token:null };
-}
-
 export function getToken(email, password) {
   return function(dispatch) {
     return AccountApi.getToken(email, password).then( response =>
     {
-      if (response.token) {
-        dispatch(getTokenSuccess(response.token));
-      } else {
-        dispatch(getTokenFail());
-      }
+      dispatch({type: types.GET_TOKEN, token:response.token});
       return response;
     }).catch( error => {
       throw(error);

@@ -24,12 +24,18 @@ const MainNavbar = ({user}) => {
             {true && <MenuItem href="/adduser">Add User</MenuItem>}
           </NavDropdown>}
       </Nav>}
+      {!(user.isValid) &&
+        <Nav pullRight>
+          <MenuItem href="/login">Sign In</MenuItem>
+        </Nav>
+      }
+
       {(user.isValid) &&
       <Nav pullRight>
         <NavDropdown id="user" title={(user.given_name + ' ' + user.family_name)}>
           <MenuItem>Administrator</MenuItem>
           <MenuItem divider />
-          <MenuItem href="/changepassword">Change Password</MenuItem>
+          <MenuItem href="/choosepassword">Change Password</MenuItem>
           <MenuItem href="/logout">Sign Out</MenuItem>
         </NavDropdown>
       </Nav>}

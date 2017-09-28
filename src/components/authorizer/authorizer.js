@@ -8,7 +8,7 @@ class Authorizer extends React.Component {
   static GetUser() {
 
     /*TODO: constants file*/
-    let token = sessionStorage.getItem('jwtToken');
+    let token = localStorage.getItem('jwtToken');
     if (token == null) {
       return { isValid: false };
     }
@@ -44,7 +44,7 @@ class Authorizer extends React.Component {
   }
 
   static LogoutCurrentUser() {
-    sessionStorage.removeItem('jwtToken');
+    localStorage.removeItem('jwtToken');
   }
 
 }

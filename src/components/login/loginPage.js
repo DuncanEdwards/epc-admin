@@ -54,9 +54,9 @@ class LoginPage extends React.Component {
       this.props.actions.getToken(email, password).then(
         (response) => {
           if (response.token) {
-            sessionStorage.setItem('jwtToken', response.token);
+            localStorage.setItem('jwtToken', response.token);
             this.props.actions.refreshUser();
-            this.props.history.push('/');
+            this.props.history.push('/?');
           } else {
             let loginFormErrors = this.getInitialFormErrors();
             loginFormErrors.errorMessage = response.errorMessage;

@@ -13,7 +13,8 @@ class HomePage extends React.Component {
 
     let entryReason = queryString.parse(props.location.search.toLowerCase()).entryreason;
 
-    let isAlertVisible = (entryReason == "newuser");
+    let isAlertVisible =
+      ((entryReason == "newuser") | (entryReason == "passwordchanged"));
 
     this.state = {
       isAlertVisible,

@@ -9,10 +9,19 @@ import {
   } from 'react-bootstrap';
 
 
-const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, isComplete, isNewUser, isPassword1Error, password1InputRef, password2InputRef}) => {
+const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,isResetting, isComplete, user, isNewUser, errorId, oldPasswordInputRef, password1InputRef, password2InputRef}) => {
   return (
     <form>
-      <FormGroup validationState={(errorMessage && (isPassword1Error))?'error':null} controlId="password1">
+      {user &&
+      <FormGroup validationState={(errorMessage && (errorId == 'oldPassword'))?'error':null} controlId="oldPassword">
+          <InputGroup>
+            <InputGroup.Addon>
+              <Glyphicon glyph="lock" />
+            </InputGroup.Addon>
+            <FormControl ref={oldPasswordInputRef} onChange={onInputChange} type="password" placeholder="Current password" />
+          </InputGroup>
+      </FormGroup>}
+      <FormGroup validationState={(errorMessage && (errorId == 'password1'))?'error':null} controlId="password1">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -20,7 +29,7 @@ const ChoosePasswordForm = ({onSubmit,onInputChange,errorMessage,successMessage,
             <FormControl ref={password1InputRef} onChange={onInputChange} type="password" placeholder="New password" />
           </InputGroup>
       </FormGroup>
-      <FormGroup validationState={(errorMessage && (!isPassword1Error))?'error':null} controlId="password2">
+      <FormGroup validationState={(errorMessage && (errorId == 'password2'))?'error':null} controlId="password2">
           <InputGroup>
             <InputGroup.Addon>
               <Glyphicon glyph="lock" />
@@ -52,8 +61,10 @@ ChoosePasswordForm.propTypes = {
   successMessage:PropTypes.string,
   isResetting:PropTypes.bool.isRequired,
   isComplete:PropTypes.bool.isRequired,
+  user:PropTypes.object,
   isNewUser:PropTypes.bool.isRequired,
-  isPassword1Error:PropTypes.bool.isRequired,
+  errorId:PropTypes.string.isRequired,
+  oldPasswordInputRef:PropTypes.func,
   password1InputRef:PropTypes.func.isRequired,
   password2InputRef:PropTypes.func.isRequired
 };
