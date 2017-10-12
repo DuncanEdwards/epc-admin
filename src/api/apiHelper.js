@@ -3,10 +3,9 @@ const baseRestUri = 'http://localhost:61469/api/v1/';
 function getHeaders(isRemoveAuthorize) {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    if (isRemoveAuthorize == true) {
-      headers.append("Authorization", "Bearer xx");
+    if (!isRemoveAuthorize) {
+      headers.append("Authorization", "Bearer " + localStorage.getItem('jwtToken'));
     }
-
     return headers;
 }
 

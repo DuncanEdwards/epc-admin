@@ -6,6 +6,7 @@ const UserListRow = ({user}) => {
     <tr>
       <td>{user.firstName}</td>
       <td>{user.surname}</td>
+      <td>{user.email}</td>
       <td>{user.type}</td>
     </tr>
   );

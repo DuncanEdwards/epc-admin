@@ -32,8 +32,6 @@ class ChoosePasswordPage extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.choosePassword = this.choosePassword.bind(this);
 
-    debugger;
-
   }
 
   choosePassword(event) {
@@ -44,8 +42,6 @@ class ChoosePasswordPage extends React.Component {
     this.setState({errorMessage:"",successMessage:""});
 
     let {user,oldPassword,password1,password2}  = this.state;
-
-    debugger;
 
     if ((user != null) && (!oldPassword)) {
       this.setState({errorId:"oldPassword",errorMessage:"Please enter your current password"});
@@ -103,7 +99,6 @@ class ChoosePasswordPage extends React.Component {
               }).
               catch(error => {
                 //TODO:Implement
-                debugger;
               });
           }
         });

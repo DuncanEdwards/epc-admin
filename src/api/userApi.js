@@ -1,4 +1,6 @@
-import delay from './delay';
+import HttpStatus from 'http-status-codes';
+import getRequest from './apiHelper';
+
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -34,9 +36,29 @@ const users = [
 class UserApi {
   static getUsers() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(Object.assign([], users));
-      }, delay);
+
+      let request = getRequest(
+        {
+          method:'GET',
+          resource: 'users',
+          isRemoveAuthorize: false
+        });
+
+      fetch(request).then( function(response) {
+
+        debugger;
+        let headers = response.headers.get("X-Pagination");
+
+        if (response.status == HttpStatus.OK) {
+          //Return the access token
+          response.json().then( users => { resolve(users); });
+        } else {
+          resolve({errorMessage:"Unexpected error, please try again later"});
+        }
+
+      }).catch(function(error) {
+        resolve({errorMessage:"Unexpected error, please try again later"});
+      });
     });
   }
 }

@@ -9,6 +9,7 @@ const UserList = ({users}) => {
         <tr>
           <th>First Name</th>
           <th>Surname</th>
+          <th>Email</th>
           <th>Type</th>
         </tr>
       </thead>

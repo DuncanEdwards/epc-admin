@@ -1,7 +1,6 @@
 //import AuthorApi from '../api/mockAuthorApi';
 import * as types from './actionTypes';
-import {beginAjaxCall} from "./ajaxStatusActions";
-import UserApi from "../api/mock/mockUserApi";
+import UserApi from "../api/userApi";
 
 export function loadUsersSuccess(users) {
   return { type: types.LOAD_USERS_SUCCESS, users };
@@ -10,6 +9,7 @@ export function loadUsersSuccess(users) {
 export function loadUsers() {
     return dispatch => {
         return UserApi.getUsers().then(users => {
+          debugger;
           dispatch(loadUsersSuccess(users));
         }).catch(error => {
           throw(error);
