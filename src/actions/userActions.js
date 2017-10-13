@@ -6,9 +6,9 @@ export function loadUsersSuccess(response) {
   return { type: types.LOAD_USERS_SUCCESS, response };
 }
 
-export function loadUsers(pageNumber, sortClause) {
+export function loadUsers(pageNumber, sortClause, typeFilter) {
     return dispatch => {
-        return UserApi.getUsers(pageNumber, sortClause).then(response => {
+        return UserApi.getUsers(pageNumber, sortClause, typeFilter).then(response => {
           dispatch(loadUsersSuccess(response));
         }).catch(error => {
           throw(error);

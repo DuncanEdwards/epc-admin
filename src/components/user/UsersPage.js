@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
-import { Pagination } from 'react-bootstrap';
+import { Pagination, ToggleButton, ToggleButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import UserList from './UserList';
 import * as userActions from '../../actions/userActions';
 
@@ -13,11 +13,13 @@ class UsersPage extends React.Component {
 
     this.state = {
       sortField: "Surname",
-      isAscending: false
+      isAscending: false,
+      typeFilter: null
     };
 
     this.handleSelect = this.handleSelect.bind(this);
     this.clickSortHeader = this.clickSortHeader.bind(this);
+    this.typeFilterChange = this.typeFilterChange.bind(this);
   }
 
   componentWillMount() {
@@ -29,6 +31,15 @@ class UsersPage extends React.Component {
     return (
       <div>
         <h2>All Users</h2>
+          <ButtonToolbar>
+            <ToggleButtonGroup onChange={this.typeFilterChange} name="typeFilter" type="radio" defaultValue={""} bsSize="medium">
+              <ToggleButton value="">All</ToggleButton>
+              <ToggleButton value="Assessor">Assessor</ToggleButton>
+              <ToggleButton value="Agent">Agent</ToggleButton>
+              <ToggleButton value="Administrator">Administrator</ToggleButton>
+            </ToggleButtonGroup>
+          </ButtonToolbar>
+          <br/>
         <UserList onHeaderClick={this.clickSortHeader} sortField={this.state.sortField} isAscending={this.state.isAscending} users={users}/>
         {pagination &&
         <Pagination
@@ -47,13 +58,20 @@ class UsersPage extends React.Component {
   }
 
   loadUsers(pageNumber) {
-    const {sortField, isAscending} = this.state;
-    debugger;
-    this.props.actions.loadUsers(pageNumber, sortField + ((!isAscending) ? " desc" : ""));
+    const {sortField, isAscending, typeFilter} = this.state;
+    this.props.actions.loadUsers(
+      pageNumber,
+      sortField + ((!isAscending) ? " desc" : ""),
+      typeFilter);
+  }
+
+  typeFilterChange(typeFilter) {
+    this.setState({
+      typeFilter:typeFilter
+    }, () => this.loadUsers(1));
   }
 
   clickSortHeader(event) {
-    debugger;
     let newSortField = event.target.parentNode.id;
     if (newSortField == this.state.sortField) {
       this.setState({

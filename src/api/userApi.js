@@ -3,13 +3,18 @@ import getRequest from './apiHelper';
 
 
 class UserApi {
-  static getUsers(pageNumber = 2, orderBy = "Surname desc") {
+  static getUsers(pageNumber = 2, orderBy = "Surname desc", typeFilter="") {
     return new Promise((resolve, reject) => {
+
+      let url = 'users?pageSize=12&pageNumber=' + pageNumber + '&orderBy=' + orderBy;
+      if (typeFilter) {
+        url += "&type=" + typeFilter;
+      }
 
       let request = getRequest(
         {
           method:'GET',
-          resource: encodeURI('users?pageSize=15&pageNumber=' + pageNumber + '&orderBy=' + orderBy),
+          resource: encodeURI(url),
           isRemoveAuthorize: false
         });
 
