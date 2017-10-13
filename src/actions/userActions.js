@@ -2,15 +2,14 @@
 import * as types from './actionTypes';
 import UserApi from "../api/userApi";
 
-export function loadUsersSuccess(users) {
-  return { type: types.LOAD_USERS_SUCCESS, users };
+export function loadUsersSuccess(response) {
+  return { type: types.LOAD_USERS_SUCCESS, response };
 }
 
 export function loadUsers() {
     return dispatch => {
-        return UserApi.getUsers().then(users => {
-          debugger;
-          dispatch(loadUsersSuccess(users));
+        return UserApi.getUsers().then(response => {
+          dispatch(loadUsersSuccess(response));
         }).catch(error => {
           throw(error);
         });

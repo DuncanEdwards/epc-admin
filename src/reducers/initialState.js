@@ -2,6 +2,6 @@ import Authorizer from '../components/authorizer/authorizer';
 
 export default {
   user:Authorizer.GetUser(),
-  users:[],
+  userData:{users:[],pagination:null},
   ajaxCallsInProgress:0
 };

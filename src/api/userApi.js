@@ -46,12 +46,10 @@ class UserApi {
 
       fetch(request).then( function(response) {
 
-        debugger;
-        let headers = response.headers.get("X-Pagination");
-
         if (response.status == HttpStatus.OK) {
+          let pagination = JSON.parse(response.headers.get("X-Pagination"));
           //Return the access token
-          response.json().then( users => { resolve(users); });
+          response.json().then( users => { resolve({users,pagination}); });
         } else {
           resolve({errorMessage:"Unexpected error, please try again later"});
         }
