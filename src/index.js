@@ -9,7 +9,6 @@ import {refreshUser} from './actions/accountActions';
 import {BrowserRouter} from 'react-router-dom';
 
 const store = configureStore();
-store.dispatch(loadUsers());
 store.dispatch(refreshUser());
 
 render(

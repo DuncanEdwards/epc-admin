@@ -1,15 +1,19 @@
 import React,{PropTypes} from 'react';
 import UserListRow from './UserListRow';
-import { Table } from 'react-bootstrap';
+import { Table, Glyphicon } from 'react-bootstrap';
 
-const UserList = ({users}) => {
+const UserList = ({users,sortField, isAscending, onHeaderClick}) => {
+
+  let firstNameFieldGlyph = ((sortField == 'FirstName') && isAscending) ? "chevron-down" : "chevron-up";
+  let surnameFieldGlyph = ((sortField == 'Surname') && isAscending) ? "chevron-down" : "chevron-up";
+  let emailFieldGlyph = ((sortField == 'Email') && isAscending) ? "chevron-down" : "chevron-up";
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Surname</th>
-          <th>Email</th>
+          <th><span id="FirstName" role="button" onClick={onHeaderClick}>First Name <Glyphicon glyph={firstNameFieldGlyph} /></span></th>
+          <th><span id="Surname" role="button" onClick={onHeaderClick}>Surname <Glyphicon glyph={surnameFieldGlyph} /></span></th>
+          <th><span id="Email" role="button" onClick={onHeaderClick}>Email <Glyphicon glyph={emailFieldGlyph} /></span></th>
           <th>Type</th>
         </tr>
       </thead>
@@ -23,7 +27,10 @@ const UserList = ({users}) => {
 };
 
 UserList.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  onHeaderClick:PropTypes.func.isRequired,
+  sortField: PropTypes.string,
+  isAscending: PropTypes.bool
 };
 
 export default UserList;
