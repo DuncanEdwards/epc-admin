@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
-import { Pagination, ToggleButton, ToggleButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Pagination, ToggleButton, ToggleButtonGroup, ButtonToolbar, FormControl, InputGroup, Button, Col, Glyphicon } from 'react-bootstrap';
 import UserList from './UserList';
 import * as userActions from '../../actions/userActions';
 
@@ -38,6 +38,14 @@ class UsersPage extends React.Component {
               <ToggleButton value="Agent">Agent</ToggleButton>
               <ToggleButton value="Administrator">Administrator</ToggleButton>
             </ToggleButtonGroup>
+            <Col xs={4}>
+              <InputGroup>
+                <FormControl type="text" />
+                <InputGroup.Button>
+                  <Button><Glyphicon glyph={"search"}/></Button>
+                </InputGroup.Button>
+              </InputGroup>
+            </Col>
           </ButtonToolbar>
           <br/>
         <UserList onHeaderClick={this.clickSortHeader} sortField={this.state.sortField} isAscending={this.state.isAscending} users={users}/>
@@ -72,12 +80,13 @@ class UsersPage extends React.Component {
   }
 
   clickSortHeader(event) {
-    let newSortField = event.target.parentNode.id;
+    let newSortField = (event.target.id) ? event.target.id : event.target.parentNode.id;
     if (newSortField == this.state.sortField) {
       this.setState({
         isAscending:(!this.state.isAscending)
       }, () => this.loadUsers(1));
     } else {
+      console.log(newSortField);
       this.setState({
         sortField:newSortField,
         isAscending:true
