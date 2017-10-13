@@ -13,13 +13,17 @@ class UsersPage extends React.Component {
 
     this.state = {
       sortField: "Surname",
-      isAscending: false,
-      typeFilter: null
+      isAscending: true,
+      typeFilter: null,
+      searchTerm: null
     };
 
     this.handleSelect = this.handleSelect.bind(this);
     this.clickSortHeader = this.clickSortHeader.bind(this);
     this.typeFilterChange = this.typeFilterChange.bind(this);
+    this.searchTextChange = this.searchTextChange.bind(this);
+    this.searchCommit = this.searchCommit.bind(this);
+    this.searchFilterKeyPress = this.searchFilterKeyPress.bind(this);
   }
 
   componentWillMount() {
@@ -38,11 +42,11 @@ class UsersPage extends React.Component {
               <ToggleButton value="Agent">Agent</ToggleButton>
               <ToggleButton value="Administrator">Administrator</ToggleButton>
             </ToggleButtonGroup>
-            <Col xs={4}>
+            <Col xs={3}>
               <InputGroup>
-                <FormControl type="text" />
+                <FormControl type="text" onKeyPress={this.searchFilterKeyPress} onChange={this.searchTextChange} />
                 <InputGroup.Button>
-                  <Button><Glyphicon glyph={"search"}/></Button>
+                  <Button onClick={this.searchCommit}><Glyphicon glyph={"search"}/></Button>
                 </InputGroup.Button>
               </InputGroup>
             </Col>
@@ -66,17 +70,33 @@ class UsersPage extends React.Component {
   }
 
   loadUsers(pageNumber) {
-    const {sortField, isAscending, typeFilter} = this.state;
+    const {sortField, isAscending, typeFilter, searchTerm} = this.state;
     this.props.actions.loadUsers(
       pageNumber,
       sortField + ((!isAscending) ? " desc" : ""),
-      typeFilter);
+      typeFilter,
+      searchTerm);
   }
 
   typeFilterChange(typeFilter) {
     this.setState({
       typeFilter:typeFilter
     }, () => this.loadUsers(1));
+  }
+
+  searchTextChange(element) {
+    let searchTerm = element.target.value;
+    this.setState({searchTerm});
+  }
+
+  searchFilterKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.searchCommit();
+    }
+  }
+
+  searchCommit() {
+    this.loadUsers(1);
   }
 
   clickSortHeader(event) {
@@ -86,7 +106,6 @@ class UsersPage extends React.Component {
         isAscending:(!this.state.isAscending)
       }, () => this.loadUsers(1));
     } else {
-      console.log(newSortField);
       this.setState({
         sortField:newSortField,
         isAscending:true

@@ -3,12 +3,16 @@ import getRequest from './apiHelper';
 
 
 class UserApi {
-  static getUsers(pageNumber = 2, orderBy = "Surname desc", typeFilter="") {
+  static getUsers(pageNumber = 2, orderBy = "Surname desc", typeFilter="", searchTerm) {
     return new Promise((resolve, reject) => {
 
       let url = 'users?pageSize=12&pageNumber=' + pageNumber + '&orderBy=' + orderBy;
       if (typeFilter) {
         url += "&type=" + typeFilter;
+      }
+
+      if (searchTerm) {
+        url += "&searchQuery=" + searchTerm;
       }
 
       let request = getRequest(
