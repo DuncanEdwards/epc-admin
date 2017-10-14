@@ -2,8 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
-import { Pagination, ToggleButton, ToggleButtonGroup, ButtonToolbar, FormControl, InputGroup, Button, Col, Glyphicon } from 'react-bootstrap';
+import { Pagination } from 'react-bootstrap';
 import UserList from './UserList';
+import UserListFilter from './UserListFilter'
 import * as userActions from '../../actions/userActions';
 
 class UsersPage extends React.Component {
@@ -35,32 +36,15 @@ class UsersPage extends React.Component {
     return (
       <div>
         <h2>All Users</h2>
-          <ButtonToolbar>
-            <ToggleButtonGroup onChange={this.typeFilterChange} name="typeFilter" type="radio" defaultValue={""} bsSize="medium">
-              <ToggleButton value="">All</ToggleButton>
-              <ToggleButton value="Assessor">Assessor</ToggleButton>
-              <ToggleButton value="Agent">Agent</ToggleButton>
-              <ToggleButton value="Administrator">Administrator</ToggleButton>
-            </ToggleButtonGroup>
-            <Col xs={3}>
-              <InputGroup>
-                <FormControl type="text" onKeyPress={this.searchFilterKeyPress} onChange={this.searchTextChange} />
-                <InputGroup.Button>
-                  <Button onClick={this.searchCommit}><Glyphicon glyph={"search"}/></Button>
-                </InputGroup.Button>
-              </InputGroup>
-            </Col>
-          </ButtonToolbar>
-          <br/>
+        <UserListFilter
+          onTypeFilterChange={this.typeFilterChange}
+          onSearchFilterKeyPress={this.searchFilterKeyPress}
+          onSearchTextChange={this.searchTextChange}
+          onSearchCommit={this.searchCommit}/>
+        <br/>
         <UserList onHeaderClick={this.clickSortHeader} sortField={this.state.sortField} isAscending={this.state.isAscending} users={users}/>
         {pagination &&
-        <Pagination
-          prev
-          next
-          first
-          last
-          ellipsis
-          boundaryLinks
+        <Pagination prev next first last ellipsis boundaryLinks
           items={pagination.totalPages}
           maxButtons={5}
           activePage={pagination.currentPage}

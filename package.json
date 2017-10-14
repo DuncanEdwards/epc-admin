@@ -6,7 +6,9 @@
     "prestart": "babel-node tools/startMessage.js",
     "babel-node-version": "babel-node --version",
     "start": "npm-run-all --parallel open:src",
-    "open:src": "babel-node tools/startServer.js"
+    "open:src": "babel-node tools/startServer.js",
+    "build": "webpack -p --config ./webpack.config.prod.js",
+    "prod-run": "babel-node tools/prodServer.js"
   },
   "author": "Duncan Edwards",
   "license": "MIT",

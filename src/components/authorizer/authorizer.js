@@ -7,6 +7,8 @@ class Authorizer extends React.Component {
 
   static GetUser() {
 
+    debugger;
+
     /*TODO: constants file*/
     let token = localStorage.getItem('jwtToken');
     if (token == null) {
@@ -17,11 +19,12 @@ class Authorizer extends React.Component {
     user['isValid'] = true;
     //Map over a more user friendly role
     user['role'] = user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    debugger;
     //Calculate if expired
     if(user.exp < Math.round((new Date()).getTime()/1000))
     {
       //Token expired (expired, return isValid=false)
-      /*user['isValid'] = false;*/
+      user['isValid'] = false;
     }
     return user;
   }
