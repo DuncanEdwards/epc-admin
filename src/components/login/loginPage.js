@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import LoginDialog from './loginDialog';
-import Authorizer from "../authorizer/authorizer";
+import Authorizer from "../authorization/authorizer";
 import * as accountActions  from "../../actions/accountActions";
 
 class LoginPage extends React.Component {

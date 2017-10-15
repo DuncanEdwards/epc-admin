@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as accountActions  from "../../actions/accountActions";
-import Authorizer from "../authorizer/authorizer";
+import Authorizer from "../authorization/authorizer";
 import LogoutDialog from "./logoutDialog";
 
 class LogoutPage extends React.Component {

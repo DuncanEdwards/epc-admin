@@ -1,6 +1,6 @@
 //import AuthorApi from '../api/mockAuthorApi';
 import * as types from './actionTypes';
-import Authorizer from '../components/authorizer/authorizer';
+import Authorizer from '../components/authorization/authorizer';
 import AccountApi from "../api/accountApi";
 
 

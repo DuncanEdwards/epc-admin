@@ -6,8 +6,8 @@ import LogoutPage from '../logout/logoutPage';
 import ResetPasswordPage from '../passwordReset/passwordResetPage';
 import ChoosePasswordPage from '../choosePassword/choosePasswordPage';
 import HomePage from '../home/homePage';
-import Authorizer from '../authorizer/authorizer';
-import PrivateRoute from '../authorizer/privateRoute';
+import Authorizer from '../authorization/authorizer';
+import PrivateRoute from '../authorization/privateRoute';
 import App from '../App';
 
 const Main = () => {

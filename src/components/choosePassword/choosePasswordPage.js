@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import ChoosePasswordDialog from './choosePasswordDialog';
 import AccountApi from "../../api/accountApi";
 import * as accountActions  from "../../actions/accountActions";
-import Authorizer from "../authorizer/authorizer";
+import Authorizer from "../authorization/authorizer";
 
 class ChoosePasswordPage extends React.Component {
 

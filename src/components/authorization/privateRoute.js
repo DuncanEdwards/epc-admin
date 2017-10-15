@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Authorizer from '../authorizer/authorizer';
+import Authorizer from './authorizer';
 
 const PrivateRoute = ({ component, exact = false, path, roles, location, render }) => {
 
