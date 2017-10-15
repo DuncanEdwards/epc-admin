@@ -7,7 +7,7 @@ import {
   FormControl,
   InputGroup,
   Button,
-  Col, 
+  Col,
   Glyphicon} from 'react-bootstrap';
 
 const UserListFilter = ({onTypeFilterChange,onSearchFilterKeyPress,onSearchTextChange,onSearchCommit}) => {
@@ -21,7 +21,7 @@ const UserListFilter = ({onTypeFilterChange,onSearchFilterKeyPress,onSearchTextC
       </ToggleButtonGroup>
       <Col xs={3}>
         <InputGroup>
-          <FormControl type="text" onKeyPress={onSearchFilterKeyPress} onChange={onSearchTextChange} />
+          <FormControl type="text" placeholder="filter users" onKeyPress={onSearchFilterKeyPress} onChange={onSearchTextChange} />
           <InputGroup.Button>
             <Button onClick={onSearchCommit}><Glyphicon glyph={"search"}/></Button>
           </InputGroup.Button>
