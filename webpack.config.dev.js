@@ -20,6 +20,8 @@ export default {
         contentBase: path.resolve(__dirname, 'src')
     },
     plugins: [
+        new webpack.DefinePlugin(
+          {"REST_API_BASE_URI": JSON.stringify("http://localhost:61469")}),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],

@@ -2,8 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-process.env.NODE_ENV = 'production';
-
 module.exports = {
  devtool: 'cheap-module-source-map',
  entry: './src/index',
@@ -14,6 +12,8 @@ module.exports = {
  },
  plugins:  [
     new webpack.DefinePlugin({ "process.env": {  NODE_ENV: JSON.stringify("production") }}),
+    new webpack.DefinePlugin(
+      {"REST_API_BASE_URI": JSON.stringify("http://ec2-52-209-138-171.eu-west-1.compute.amazonaws.com")}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),

@@ -1,4 +1,4 @@
-const baseRestUri = 'http://localhost:61469/api/v1/';
+const baseRestUri = REST_API_BASE_URI + '/api/v1/';
 
 function getHeaders(isRemoveAuthorize) {
     let headers = new Headers();
