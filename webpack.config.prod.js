@@ -13,7 +13,7 @@ module.exports = {
  plugins:  [
     new webpack.DefinePlugin({ "process.env": {  NODE_ENV: JSON.stringify("production") }}),
     new webpack.DefinePlugin(
-      {"REST_API_BASE_URI": JSON.stringify("http://ec2-52-209-138-171.eu-west-1.compute.amazonaws.com")}),
+      {"REST_API_BASE_URI": JSON.stringify("http://epc-restapi.lazycatthemes.com")}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
@@ -24,6 +24,7 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     })
+
   ],
  module: {
      loaders: [
